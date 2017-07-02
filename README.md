@@ -10,7 +10,7 @@ Use [Weex Playground App](https://weex.apache.org/playground.html) to scan the Q
 
 ![QR Code](./qrcode.jpg)
 
-> The content of this QR code is `http://whatever.cn?_wx_tpl=https://raw.githubusercontent.com/weexteam/weex-hackernews/master/ios/assets/index.js` , please make sure your phone can assess GitHub.
+> The content of this QR code is `http://whatever.cn?_wx_tpl=https://raw.githubusercontent.com/weexteam/weex-hackernews/master/ios/assets/filters.js` , please make sure your phone can assess GitHub.
 
 ## Compile
 

@@ -8,7 +8,7 @@
 
 ![QR Code](./qrcode.jpg)
 
-> 二维码内容是 `http://whatever.cn?_wx_tpl=https://raw.githubusercontent.com/weexteam/weex-hackernews/master/ios/assets/index.js` ，确保你的手机能登上 GitHub 。
+> 二维码内容是 `http://whatever.cn?_wx_tpl=https://raw.githubusercontent.com/weexteam/weex-hackernews/master/ios/assets/filters.js` ，确保你的手机能登上 GitHub 。
 
 ## 编译项目文件
 

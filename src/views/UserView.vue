@@ -1,68 +1,100 @@
 <template>
-  <div class="user-view">
-    <app-header></app-header>
-    <div class="user-info">
-      <text class="user-name">{{ userId }}</text>
-      <div class="user-meta" v-if="user">
-        <text class="meta-label">Created: {{ user.created | timeAgo }} ago</text>
-        <text class="meta-label">Karma:   {{ user.karma }}</text>
-        <text class="meta-label user-about" v-if="user.about">{{ user.about | unescape }}</text>
-      </div>
-      <div class="loading" v-else>
-        <text class="loading-text">loading ...</text>
-      </div>
+  <div>
+    <div>
+      <text style="font-size: 40px">oninput: {{txtInput}}</text>
+      <text style="font-size: 40px">onchange: {{txtChange}}</text>
+      <text style="font-size: 40px">onreturntype: {{txtReturnType}}</text>
     </div>
+    <scroller>
+      <div>
+        <div style="background-color: #286090">
+          <text class="title" style="height: 80 ;padding: 20;color: #FFFFFF">input type = text</text>
+        </div>
+        <input type="text" placeholder="Input Text" class="input" :autofocus=true value="" @change="onchange" @input="oninput" @focus="onfocus" @blur="onblur"/>
+      </div>
+
+
+
+    </scroller>
   </div>
 </template>
 
-<script>
-  import AppHeader from '../components/app-header.vue'
-
-  export default {
-    components: { AppHeader },
-    computed: {
-      userId () {
-        if (this.$route && this.$route.params) {
-          return this.$route.params.id
-        }
-        return 'Hanks10100'
-      },
-      user () {
-        return this.$store.state.users[this.userId]
-      }
-    },
-
-    created () {
-      this.$store.dispatch('FETCH_USER', { id: this.userId })
-    }
-  }
-</script>
-
 <style scoped>
-  .user-info {
-    padding-top: 60px;
-    padding-left: 80px;
-    padding-right: 60px;
+  .input {
+    font-size: 60px;
+    height: 80px;
+    width: 750px;
   }
-  .user-name {
-    font-size: 72px;
-    font-weight: bold;
-    margin-bottom: 60px;
-  }
-  .loading-text {
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 44px;
-    color: #BBBBBB;
-  }
-  .meta-label {
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 32px;
-    margin-bottom: 15px;
-    color: #333333;
-  }
-  .user-about {
-    margin-top: 20px;
-    font-size: 28px;
-    color: #666666;
+  .button {
+    font-size: 36;
+    width: 200;
+    color: #41B883;
+    text-align: center;
+    padding-top: 10;
+    padding-bottom: 10;
+    border-width: 2;
+    border-style: solid;
+    margin-right: 20;
+    border-color: rgb(162, 217, 192);
+    background-color: rgba(162, 217, 192, 0.2);
   }
 </style>
+
+<script>
+    const modal = weex.requireModule('modal')
+    module.exports = {
+        data: function () {
+            return {
+                txtInput: '',
+                txtChange: '',
+                txtReturnType: '',
+                txtSelection:'',
+                autofocus: false
+            };
+        },
+        methods: {
+            ready: function () {
+                var self = this;
+                setTimeout(function () {
+                    self.autofocus = true;
+                }, 1000);
+            },
+            onchange: function (event) {
+                this.txtChange = event.value;
+                console.log('onchange', event.value);
+            },
+            onreturn: function (event) {
+                this.txtReturnType = event.returnKeyType;
+                console.log('onreturn', event.type);
+            },
+            oninput: function (event) {
+                this.txtInput = event.value;
+                console.log('oninput', event.value);
+            },
+            focus: function () {
+                this.$refs['input1'].focus();
+            },
+            blur: function () {
+                this.$refs['input1'].blur();
+            },
+            setRange: function() {
+                console.log(this.$refs["inputselection"]);
+                this.$refs["inputselection"].setSelectionRange(2, 6);
+            },
+            onfocus () {
+                console.log('onfocus:');
+                modal.toast({
+                    message: 'onfocus',
+                    duration: 0.8
+                })
+            },
+            onblur () {
+                console.log('onblur:');
+                modal.toast({
+                    message: 'input blur',
+                    duration: 0.8
+                })
+            }
+        }
+    };
+</script>
